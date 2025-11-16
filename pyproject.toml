@@ -1,0 +1,18 @@
+[project]
+name = "preplay"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13.9"
+dependencies = [
+    "fastapi[all]>=0.121.2",
+    "gunicorn>=23.0.0",
+    "loguru>=0.7.3",
+    "playwright>=1.56.0",
+    "pyjwt[crypto]>=2.10.1",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.14.5",
+]
