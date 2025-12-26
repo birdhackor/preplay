@@ -11,3 +11,8 @@ wheels/
 
 # Python
 .python-version
+.coverage
+
+# Environment variables
+.env
+.env.*
