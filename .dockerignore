@@ -1,0 +1,27 @@
+# Version control
+.git
+.gitignore
+
+# Python caches
+__pycache__/
+*.pyc
+.ruff_cache/
+.pytest_cache/
+.coverage
+.coverage.*
+
+# Virtual environments and tool caches
+.venv/
+.cache/
+
+# OS / editor noise
+.DS_Store
+
+# Build/test artifacts
+htmlcov/
+dist/
+build/
+
+# Project-specific
+tests/
+*.log

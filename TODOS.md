@@ -20,7 +20,7 @@
 - [x] Use existing `jwt_keys` from config.py for validation
 - [x] Return 403 for unauthorized requests
 - [x] HTTPBearer handles missing/invalid Authorization header automatically
-- [ ] Add unit tests for authentication
+- [x] Add unit tests for authentication
 
 ## ✅ Phase 3: Core Rendering Functionality
 
@@ -117,13 +117,18 @@ uv run pytest tests -m "slow or e2e" -v
 
 ### Task 10: Create Dockerfile
 
-- [ ] Create Dockerfile with Python 3.13 base image
-- [ ] Install uv package manager
-- [ ] Copy and install project dependencies
-- [ ] Install Playwright and Firefox browser
-- [ ] Configure non-root user for security
-- [ ] Optimize image size (multi-stage build if needed)
-- [ ] Test Docker build locally
+- [x] Create Dockerfile with Python 3.13 base image
+  - task-note: use `ghcr.io/astral-sh/uv:python3.13-bookworm-slim` as builder, `python:3.13-bookworm-slim` runtime; glibc/font present; `playwright install-deps` runs in runtime
+- [x] Install uv package manager
+  - task-note: builder comes with uv; `UV_COMPILE_BYTECODE=1`, `UV_LINK_MODE=copy`, `UV_PYTHON_DOWNLOADS=0` set for reproducible layers
+- [x] Copy and install project dependencies
+  - task-note: lock + pyproject copied first; `uv sync --frozen --no-install-project --no-dev`; app not installed into venv (app-as-source)
+- [x] Install Playwright and Firefox browser
+  - task-note: `uv run playwright install firefox` in builder; browser cache copied; `python -m playwright install-deps firefox` in runtime; keep `PLAYWRIGHT_BROWSERS_PATH=/ms-playwright`
+- [x] Optimize image size (multi-stage build if needed)
+  - task-note: builder→runtime split; apt lists removed; dev deps excluded; consider adding `.dockerignore` (tests, .git, htmlcov) to shrink context
+- [x] Test Docker build locally
+  - task-note: built `preplay:local`; runtime defaults to `USER root` (Firefox sandbox requires userns privileges); `docker run -d -p 8000:8000 -e JWT_KEYS='{"default":"testsecret"}' preplay:local`; validated `/health` and `/readiness` via `docker exec` inside container (host port access may depend on host networking)
 
 ### Task 11: Kubernetes Configuration Files
 
